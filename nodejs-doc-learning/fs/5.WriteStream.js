@@ -6,10 +6,10 @@ const path_ = path.resolve(__dirname, "../assert/image/icon.png");
 const path__ = path.resolve(__dirname, "../assert/image/icon_1.png");
 
 const wirteStream = fs.createWriteStream(path__, {
-    // encoding: 'image/png'
+  // encoding: 'image/png'
 });
 const readStream = fs.createReadStream(path_, {
-    // encoding: 'iamge/png'
+  // encoding: 'iamge/png'
 });
 
 wirteStream.on("open", () => {
@@ -31,4 +31,3 @@ wirteStream.on("pipe", src => {
 });
 
 readStream.pipe(wirteStream); // 将 guanjiu.txt 的文字写到 write.txt 中.
-
