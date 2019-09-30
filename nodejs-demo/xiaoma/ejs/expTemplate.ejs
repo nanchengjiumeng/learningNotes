@@ -1,0 +1,929 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <title><%= title %></title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 40px;
+        padding: 10px 0;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 10px 0px rgba(189, 189, 189, 0.5);
+        z-index: 999;
+      }
+
+      main {
+        padding: 60px 0 55px;
+        background: #f0f0f2;
+      }
+
+      main hr {
+        margin: 10px;
+        height: 1px;
+        border: none;
+        background: rgba(230, 230, 230, 1);
+      }
+
+      main .counter {
+        margin: 0 15px;
+      }
+
+      main .counter span {
+        padding-bottom: 5px;
+        display: inline-block;
+        font-size: 14px;
+        font-family: PingFangSC-Medium;
+        font-weight: 100;
+        color: #7a7a7f;
+      }
+
+      main .counter span.active {
+        margin-right: 20px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid rgba(248, 91, 69, 1);
+        color: rgba(248, 91, 69, 1);
+      }
+
+      main .counter span.normal {
+        font-size: 14px;
+        font-family: PingFangSC-Semibold;
+        font-weight: 600;
+        color: rgba(50, 54, 64, 1);
+        line-height: 20px;
+      }
+
+      main ul,
+      main li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      footer {
+        position: fixed;
+        bottom: 0;
+        height: 40px;
+        padding: 7px 0 8px 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 10px 0px rgba(189, 189, 189, 0.5);
+      }
+
+      .head {
+        margin: 0 15px;
+      }
+
+      .head .img {
+        margin-right: 15px;
+        float: left;
+        display: block;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+
+      .head .title {
+        height: 40px;
+      }
+
+      .head .title h1 {
+        margin: 0;
+        font-size: 16px;
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
+        color: rgba(51, 54, 64, 1);
+        line-height: 24px;
+      }
+
+      .head .title h2 {
+        margin: 0;
+        font-size: 12px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(95, 95, 100, 1);
+        line-height: 16px;
+      }
+
+      .head .title h2 span {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .head .title h2 .t-name {
+        max-width: 9em;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        float: left;
+      }
+
+      .head .title .slim {
+        font-size: 12px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(255, 171, 48, 1);
+      }
+
+      .head .btn {
+        white-space: nowrap;
+        max-width: 100px;
+        font-family: PingFangSC-Regular;
+        position: absolute;
+        right: 15px;
+        top: 0;
+        padding: 0 10px;
+        height: 35px;
+        background: rgba(248, 91, 69, 1);
+        border-radius: 6px;
+        border: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+      }
+
+      .head .btn.not-attention {
+        right: 0;
+        margin: 0;
+        width: auto;
+        height: auto;
+        background: inherit;
+        color: #f85a44;
+      }
+
+      .head .btn.not-attention span {
+        font-size: 20px;
+      }
+
+      .head .btn:focus {
+        outline: 0;
+      }
+
+      /* header */
+      header .btn.towords_download {
+        top: 13px;
+      }
+
+      header .head .img {
+        border-radius: 0;
+      }
+
+      /* footer */
+      footer .head .title h1 {
+        font-size: 14px;
+      }
+
+      footer .head .btn.towords_download {
+        top: 10px;
+      }
+
+      /* main */
+      main .head .img {
+        margin-top: 4px;
+        height: 32px;
+        width: 32px;
+      }
+
+      /* dynamic message */
+      .dynamic {
+        margin: 0;
+        padding: 10px 0;
+        background: #fff;
+      }
+
+      .dynamic .message {
+      }
+
+      .dynamic .head {
+        position: relative;
+      }
+
+      .dynamic .head .title h1 {
+        font-size: 14px;
+      }
+
+      .dynamic .head .img {
+      }
+
+      .dynamic .head .attention.btn {
+        width: 60px;
+        height: 30px;
+        background: rgba(254, 239, 235, 1);
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(248, 90, 68, 1);
+      }
+
+      .dynamic .message {
+        margin: 15px;
+        font-size: 16px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(50, 54, 64, 1);
+        line-height: 25px;
+      }
+
+      .dynamic .keys {
+        margin: 15px 15px 0 15px;
+        /*margin-right: 15px;*/
+        font-size: 13px;
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
+        color: rgba(248, 91, 69, 1);
+        line-height: 13px;
+      }
+
+      .keys .icon {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        background: url("https://official-web.oss-cn-beijing.aliyuncs.com/active/towordsLeaningExperience/topic.png")
+          no-repeat center;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+        border-radius: 3px 3px 3px 0px;
+      }
+
+      .icon {
+        white-space: nowrap;
+        letter-spacing: -1em;
+        text-indent: -99em;
+        color: transparent;
+      }
+
+      .icon:before {
+        content: "\3000";
+      }
+
+      /* commentary */
+      .commentary {
+        margin-top: 15px;
+        background: #fff;
+        padding: 10px 0;
+      }
+
+      .ad {
+        height: 48px;
+        line-height: 48px;
+        background: rgba(248, 91, 68, 1);
+        text-align: center;
+        font-size: 14px;
+        font-family: PingFangSC-Medium;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+      }
+
+      .head .content {
+        margin: 0 0 0 47px;
+      }
+
+      .head .name {
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(50, 54, 64, 1);
+        line-height: 40px;
+      }
+
+      .head .message-comment {
+        margin: 0;
+        font-size: 15px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(50, 54, 64, 1);
+        line-height: 1.5;
+      }
+
+      .head .message-comment .recall {
+        color: #818181;
+      }
+
+      .head .marked {
+        margin: 10px 0;
+        position: relative;
+        height: 12px;
+        width: 100%;
+        font-size: 12px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(177, 177, 184, 1);
+        line-height: 12px;
+      }
+
+      .head .marked p {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        font-size: 13px;
+      }
+
+      .head .marked span.icon {
+        display: inline-block;
+        height: 12px;
+        width: 12px;
+        background: url("https://official-web.oss-cn-beijing.aliyuncs.com/active/towordsLeaningExperience/zan.png")
+          no-repeat center;
+        -webkit-background-size: 12px;
+        background-size: 12px;
+      }
+
+      /*more-recommend*/
+      .more-recommend {
+        margin-top: 15px;
+        padding: 10px 0;
+        background: #fff;
+      }
+
+      .functions {
+        margin: 0 15px;
+      }
+
+      .functions p {
+        text-align: center;
+        margin: 15px 0 0 0;
+        display: inline-block;
+        width: 32%;
+        font-size: 14px;
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: rgba(95, 95, 100, 1);
+        line-height: 20px;
+      }
+
+      .functions .icon {
+        display: inline-block;
+        width: 14px;
+      }
+
+      .functions .share {
+        background: url("https://official-web.oss-cn-beijing.aliyuncs.com/active/towordsLeaningExperience/fenxiang.png")
+          no-repeat center;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+      }
+
+      .functions .comment {
+        background: url("https://official-web.oss-cn-beijing.aliyuncs.com/active/towordsLeaningExperience/pinglun.png")
+          no-repeat center;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+      }
+
+      .functions .like {
+        background: url("https://official-web.oss-cn-beijing.aliyuncs.com/active/towordsLeaningExperience/zan.png")
+          no-repeat center;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+      }
+      #pleaseUseBrowser {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background-color: rgba(0, 0, 0, 0.8);
+        background-image: url("https://official-web.oss-cn-beijing.aliyuncs.com/towords/avatars/wechat_bg.png");
+        background-repeat: no-repeat;
+        background-position: 80% 2%;
+        background-size: auto 100px;
+      }
+      #pleaseUseBrowser.bg {
+        display: block;
+        animation: bgFadeIn 0.3s;
+      }
+      @keyframes bgFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div id="pleaseUseBrowser" class=""></div>
+      <header>
+        <div class="head">
+          <img
+            src="https://official-web.oss-cn-beijing.aliyuncs.com/mainPage/tuoci_logo.png"
+            alt="logo"
+            class="img logo goto"
+          />
+          <div class="title">
+            <h1>拓词-上瘾背单词</h1>
+            <h2>少壮不努力，老大背单词</h2>
+          </div>
+          <button class="btn towords_download">
+            下载 App
+          </button>
+        </div>
+      </header>
+      <main>
+        <article class="dynamic"></article>
+        <section class="commentary"></section>
+        <section class="ad btn">
+          打开［拓词］查看更多精彩学习心得
+        </section>
+        <section class="more-recommend">
+          <div class="counter">
+            <span class="normal">更多推荐</span>
+          </div>
+          <ul></ul>
+          <hr />
+        </section>
+      </main>
+      <!-- <footer></footer> -->
+    </div>
+
+    <script src="https://topschool.com/js/incoming/jquery.1.11.3.min.js"></script>
+    <script src="https://topschool.com/js/libjs/zepto/zepto.js"></script>
+
+    <script>
+      "use strict";
+
+      function ExperienceShare(_ref) {
+        var el = _ref.el,
+          search = _ref.search;
+
+        // parse url
+        this.search = search ? search : {};
+        //el:
+        this.el = document.querySelector(el);
+        this.dynamicEl = this.el.querySelector(".dynamic");
+        this.commentary = this.el.querySelector(".commentary");
+        this.moreRecommend = this.el.querySelector(".more-recommend");
+        this.moreRecommendList = this.el.querySelector(".more-recommend ul");
+        this.footerEl = this.el.querySelector("footer");
+
+        this.weChatBG = this.el.querySelector("#pleaseUseBrowser");
+
+        this.btns = [];
+
+        // data:
+        this.data = null;
+
+        // browser info
+        this.browserInfo = this.getBrowserInfo();
+        // version info
+        this.versionInfo = {
+          andri: "",
+          ios: ""
+        };
+      }
+
+      ExperienceShare.prototype.dynamicElAppendHTML = function() {
+        if (this.data && this.data.experienceInfo) {
+          this.dynamicEl.innerHTML = this.dynamicElHTML(
+            this.data.experienceInfo
+          );
+        }
+      };
+      ExperienceShare.prototype.dynamicElHTML = function(dynamicData) {
+        var userName = dynamicData.userName,
+          userPortrait = dynamicData.userPortrait,
+          groupName = dynamicData.groupName,
+          createTimeStr = dynamicData.createTimeStr,
+          content = dynamicData.content,
+          rdmExperienceTopicInfoList = dynamicData.rdmExperienceTopicInfoList;
+
+        return (
+          '\n     <div class="head">\n            <img src="' +
+          this.getUserPortraitURL(userPortrait) +
+          '" alt="avatar" class="img logo goto">\n            <div class="title">\n                <h1>' +
+          userName +
+          "</h1> \n                <h2>" +
+          (groupName ? '<span class="t-name">' + groupName + "</span>" : "") +
+          ' <span class="time">' +
+          this.formatDate(createTimeStr) +
+          '</span> \n            </div>\n            <button class="btn attention downloadBtn">\n                \u5173\u6CE8\n            </button>\n        </div>\n        <hr>\n        <p class="message">\n            ' +
+          content.replace(/(\n)/g, function() {
+            return "<br>";
+          }) +
+          '\n        </p>\n        <p class="keys">\n            ' +
+          this.renderRdmExperienceTopicInfoList(rdmExperienceTopicInfoList) +
+          "\n        </p>\n"
+        );
+      };
+
+      ExperienceShare.prototype.commentaryElAppendHTML = function() {
+        if (
+          this.data &&
+          this.data.commentInfoList &&
+          this.data.commentInfoList.length
+        ) {
+          this.commentary.innerHTML = this.commentaryHTML(
+            this.data.commentInfoList,
+            this.data.experienceInfo.praiseNum
+          );
+        }
+      };
+      ExperienceShare.prototype.commentaryHTML = function(
+        commentInfoList,
+        praiseNum
+      ) {
+        var _this2 = this;
+
+        var commentaryNumber = commentInfoList && commentInfoList.length;
+        if (commentaryNumber === 0) {
+          return "";
+        }
+        var html =
+          '<div class="counter">\n            <span class="active">\u8BC4\u8BBA ' +
+          commentaryNumber +
+          "</span>\n            <span > \u70B9\u8D5E " +
+          (praiseNum ? praiseNum : 0) +
+          "</span>\n        </div> \n        <ul>";
+        commentInfoList.forEach(function(commentInfoItem) {
+          var fromUserPortrait = commentInfoItem.fromUserPortrait,
+            fromUserName = commentInfoItem.fromUserName,
+            replyUserName = commentInfoItem.replyUserName,
+            content = commentInfoItem.content,
+            createTimeStr = commentInfoItem.createTimeStr;
+
+          html +=
+            '\n         <li>\n                <hr>\n                <div class="head">\n                    <img src="' +
+            _this2.getUserPortraitURL(fromUserPortrait) +
+            '" alt="avatar" class="img logo goto">\n                    <div class="content">\n                        <h1 class="name">' +
+            fromUserName +
+            '</h1>\n                        <p class="message-comment"><span class="recall"> ' +
+            (replyUserName ? "回复 " + replyUserName + "：" : "") +
+            "</span>" +
+            content.replace(/(\n)/g, function() {
+              return "<br>";
+            }) +
+            '</p>\n                        <div class="marked">\n                            <span class="time">' +
+            _this2.formatDate(createTimeStr) +
+            "</span>\n                        </div>\n                    </div>\n                </div>\n            </li>\n        ";
+        });
+        html += "  </ul>";
+        return html;
+      };
+
+      ExperienceShare.prototype.moreRecommendElAppendHTML = function() {
+        if (this.data && this.data.choiceList && this.data.choiceList.length) {
+          this.moreRecommendList &&
+            (this.moreRecommendList.innerHTML = this.moreRecommendHTML(
+              this.data.choiceList
+            ));
+        }
+      };
+
+      ExperienceShare.prototype.moreRecommendHTML = function(choiceList) {
+        var _this3 = this;
+
+        var html = "";
+        if (choiceList && choiceList.length) {
+          choiceList.forEach(function(choice) {
+            var userName = choice.userName,
+              userPortrait = choice.userPortrait,
+              groupName = choice.groupName,
+              createTimeStr = choice.createTimeStr,
+              content = choice.content,
+              rdmExperienceTopicInfoList = choice.rdmExperienceTopicInfoList,
+              commentNum = choice.commentNum,
+              praiseNum = choice.praiseNum;
+
+            html +=
+              '\n                <li>\n                <hr>\n                <article class="dynamic">\n                    <div class="head">\n                        <img src="' +
+              _this3.getUserPortraitURL(userPortrait) +
+              '" alt="avatar" class="img logo goto">\n                        <div class="title">\n                            <h1>' +
+              userName +
+              "</h1>\n                            <h2>" +
+              (groupName
+                ? '<span class="t-name">' + groupName + "</span>"
+                : "") +
+              ' <span class="time">' +
+              _this3.formatDate(createTimeStr) +
+              '</span>  <span class="slim">\u7CBE\u9009</span>\n                            </h2>\n                        </div>\n                        <button class="btn not-attention">\n                            <span >+</span>\u5173\u6CE8\n                        </button>\n                    </div>\n                    <p class="message">\n                        ' +
+              content.replace(/(\n)/g, function() {
+                return "<br>";
+              }) +
+              '\n                    </p>\n                    <div class="keys">\n                        ' +
+              _this3.renderRdmExperienceTopicInfoList(
+                rdmExperienceTopicInfoList
+              ) +
+              '\n                  \n                    </div>\n                    <div class="functions">\n                        <p class="btn">\n                            <span class="icon share"></span> ' +
+              (" " + "分享") +
+              '\n                        </p>\n                        <p class="btn">\n                            <span class="icon comment"></span> ' +
+              (" " + (commentNum ? commentNum : "评论")) +
+              '\n                        </p>\n                        <p class="btn">\n                            <span class="icon like"></span>' +
+              (" " + (praiseNum ? praiseNum : "点赞")) +
+              " \n                        </p>\n                    </div>\n                </article>\n            </li>\n";
+          });
+        }
+        return html;
+      };
+
+      ExperienceShare.prototype.footerElAppendHTML = function() {
+        this.footerEl.innerHTML = this.footerHTML(this.search);
+      };
+      ExperienceShare.prototype.footerHTML = function(_ref2) {
+        var usernameFrom = _ref2.usernameFrom,
+          avatarFrom = _ref2.avatarFrom;
+
+        var random = Math.floor(Math.random() * 10 + 13);
+
+        return (
+          '\n    <div class="head">\n    <img src="' +
+          this.getUserPortraitURL(avatarFrom) +
+          '" alt="\u5934\u50CF" class="img avatar goto">\n    <div class="title">\n    <h1>' +
+          usernameFrom +
+          '</h1>\n    <h2>\u5206\u4EAB\u7ED9\u4F60</h2>\n    </div>\n    <button class="btn  towords_download">\u62D3\u8BCD \u5185\u6253\u5F00</button>\n    </div>\n    '
+        );
+      };
+
+      ExperienceShare.prototype.getUserPortraitURL = function(userPortrait) {
+        var avatar_n =
+          userPortrait && userPortrait.match("default_([0-9]+).jpg");
+        var m = avatar_n && avatar_n[1];
+        return (
+          "http://new-towords.oss-cn-beijing.aliyuncs.com/img/public_portrait/avatar_" +
+          (m ? m : "01") +
+          ".png"
+        );
+      };
+      ExperienceShare.prototype.renderRdmExperienceTopicInfoList = function(
+        rdmExperienceTopicInfoList
+      ) {
+        var html = "";
+        rdmExperienceTopicInfoList &&
+          rdmExperienceTopicInfoList.forEach(function(item) {
+            html +=
+              '<span class="icon"></span> <span class="key btn">' +
+              item["topicDescription"] +
+              "</span> ";
+          });
+        return html;
+      };
+      ExperienceShare.prototype.formatDate = function(timeStr) {
+        timeStr = timeStr.replace(/-/g, function(n) {
+          return "/";
+        });
+        var date = new Date(timeStr);
+        var tNow = new Date();
+        if (tNow.getFullYear() === date.getFullYear()) {
+          var secondJetLag =
+            this.calculateSeconds(tNow) - this.calculateSeconds(date);
+          if (secondJetLag < 60) {
+            return "\u521A\u521A";
+          } else if (secondJetLag < 3600) {
+            return Math.floor(secondJetLag / 60) + "\u5206\u949F\u524D";
+          } else if (secondJetLag < 3600 * 24) {
+            return Math.floor(secondJetLag / 3600) + "\u5C0F\u65F6\u524D";
+          } else if (secondJetLag < 3600 * 48) {
+            return (
+              "\u6628\u5929 " +
+              (date.getHours() < 10 ? "0" : "") +
+              date.getHours() +
+              ":" +
+              (date.getMinutes() < 10 ? "0" : "") +
+              date.getMinutes()
+            );
+          } else {
+            return (
+              date.getMonth() +
+              "\u6708" +
+              date.getDate() +
+              "\u65E5 " +
+              (date.getHours() < 10 ? "0" : "") +
+              date.getHours() +
+              ":" +
+              (date.getMinutes() < 10 ? "0" : "") +
+              date.getMinutes()
+            );
+          }
+        } else {
+          return (
+            date.getFullYear() +
+            "\u5E74" +
+            date.getMonth() +
+            "\u6708" +
+            date.getDate() +
+            "\u65E5 " +
+            (date.getHours() < 10 ? "0" : "") +
+            date.getHours() +
+            ":" +
+            (date.getMinutes() < 10 ? "0" : "") +
+            date.getMinutes() +
+            "\u5206"
+          );
+        }
+      };
+      ExperienceShare.prototype.calculateSeconds = function(date) {
+        if (!date instanceof Date) {
+          date = new Date();
+        }
+        return (
+          ((date.getDate() * 24 + date.getHours()) * 60 + date.getMinutes()) *
+            60 +
+          date.getSeconds()
+        );
+      };
+      ExperienceShare.prototype.getBrowserInfo = function() {
+        var ua = navigator.userAgent.toLowerCase();
+
+        return {
+          isAndroid: ua.indexOf("android") > -1,
+          isIPhone: ua.toLocaleLowerCase().indexOf("iphone") > -1,
+          isWeChat: ua.indexOf("micromessenger") > -1,
+          mobile: !!navigator.userAgent.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          isWeibo: ua.indexOf("weibo") > -1
+        };
+      };
+
+      ExperienceShare.prototype.toggleWeChatBG = function() {
+        if (this.weChatBG) {
+          this.weChatBG.className =
+            this.weChatBG.className === "bg" ? "" : "bg";
+        }
+      };
+      ExperienceShare.prototype.tryToOpenAppInAri = function(url, down) {
+        var timeout = void 0,
+          t = 100,
+          hasApp = true;
+        setTimeout(function() {
+          if (hasApp) {
+            window.location.href = url;
+          } else {
+            window.location.href = down;
+          }
+          document.body.removeChild(ifr);
+        }, 500);
+
+        var t1 = Date.now();
+        var ifr = document.createElement("iframe");
+        ifr.setAttribute("src", url);
+        ifr.setAttribute("style", "display:none");
+        document.body.appendChild(ifr);
+        timeout = setTimeout(function() {
+          var t2 = Date.now();
+          if (!t1 || t2 - t1 < t + 100) {
+            hasApp = false;
+          }
+        }, t);
+      };
+
+      // get data
+      ExperienceShare.prototype.getData = function(_ref3) {
+        console.log(1);
+
+        var cb = _ref3.cb,
+          id = _ref3.id;
+
+        this.data = <%- expData %>;
+        cb && cb();
+      };
+      // get user info where this page from
+      // ExperienceShare.prototype.getUserInfo = function (_ref4) {
+      //     var userId = _ref4.userId,
+      //         cb = _ref4.cb;
+
+      //     var _this = this;
+      //     $.ajax({
+      //         url: 'https://api.towords.com/stat/get_user_info.do?user_id=' + userId,
+      //         type: 'post',
+      //         dataType: 'json',
+      //         success: function success(data) {
+      //             if (data.code === 200) {
+      //                 _this.search.usernameFrom = data.result['userName'];
+      //                 _this.search.avatarFrom = data.result['userPortrait'];
+      //                 cb && cb();
+      //             }
+      //         },
+      //         error: function error(_) {
+      //             console.log(_);
+      //         }
+      //     });
+      // };
+      // towords app version
+      ExperienceShare.prototype.getNewstAppVersion = function() {
+        var _this = this;
+        $.ajax({
+          url: "https://api.towords.com/tool/get_latest_client_version_info",
+          type: "get",
+          success: function success(data) {
+            if (data.code == 200) {
+              if (data.result.iosLastAppVersion.toString().length === 3) {
+                data.result.iosLastAppVersion += "0";
+              }
+              if (data.result.androidLastAppVersion.toString().length === 3) {
+                data.result.androidLastAppVersion += "0";
+              }
+              _this.versionInfo.andri = data.result.androidLastAppVersion.toString();
+              _this.versionInfo.ios = data.result.iosLastAppVersion.toString();
+            } else {
+              alert("获取版本号失败请联系拓词客服");
+            }
+          }
+        });
+      };
+
+      // bind btn event
+      ExperienceShare.prototype.elBindEventListener = function() {
+        var _this = this;
+        if (this.el) {
+          _this.weChatBG.addEventListener("click", function(e) {
+            _this.toggleWeChatBG();
+          });
+          this.el.addEventListener("click", function(e) {
+            var target = e.target;
+            if (
+              target.className.includes("btn") ||
+              target.className.includes("goto")
+            ) {
+              if (!_this.browserInfo.mobile) {
+                window.location.href = "https://www.towords.com/download";
+              } else if (
+                _this.browserInfo.isWeChat ||
+                _this.browserInfo.isWeibo
+              ) {
+                _this.toggleWeChatBG();
+              } else if (_this.browserInfo.isAndroid) {
+                _this.tryToOpenAppInAri(
+                  "towords://invite/openwith?experience_id=" +
+                    _this.search.experienceId,
+                  "https://new-towords.oss-cn-beijing.aliyuncs.com/download/towords_GuanWang_" +
+                    _this.versionInfo.andri +
+                    ".apk"
+                );
+              } else if (_this.browserInfo.isIPhone) {
+                window.location.href =
+                  "iOSToWords://com.towords.www/experience_id=" +
+                  _this.search.experienceId +
+                  "=";
+                setTimeout(function() {
+                  window.location.href =
+                    "https://itunes.apple.com/cn/app/ta-ci-+-shang-yin-bei-dan-ci/id726029718";
+                }, 1000);
+              } else {
+                window.location.href = "https://www.towords.com/download";
+              }
+            }
+          });
+        }
+      };
+
+      ExperienceShare.prototype.render = function() {
+        var _this = this;
+        this.getNewstAppVersion();
+        this.getData({
+          cb: function cb() {
+            _this.dynamicElAppendHTML();
+            _this.commentaryElAppendHTML();
+            _this.moreRecommendElAppendHTML();
+            // _this.footerElAppendHTML();
+            _this.elBindEventListener();
+          }
+        });
+      };
+
+      function parseSearch() {
+        var params = {
+          experienceId: 6821,
+          usernameFrom: "未获取到"
+        };
+        var parse = {};
+        var search = decodeURI(window.location.search);
+        var paramsArr = search.match(/([^&?#=()]+)=([^&?#=()]+)/g);
+        paramsArr.forEach(function(item) {
+          var keyAndValue = item.split("=");
+          if (keyAndValue && keyAndValue.length === 2) {
+            parse[keyAndValue[0]] = keyAndValue[1];
+          }
+        });
+        params.experienceId = parse["experience_id"];
+        params.userId = parse["userId"];
+        return params;
+      }
+
+      window.onload = function() {
+        var ex = new ExperienceShare({ el: "#app" });
+        ex.render();
+        (function($) {
+          var os = $.os.android ? "android" : $.os.ios ? "ios" : "pc",
+            isTowordsVW = $.towords.istowords,
+            towordsVersion = $.towords.version;
+          if (os === "ios" && isTowordsVW && towordsVersion >= 7.6) {
+            $.towordsFN.sendSharedPageInfo({
+              title: "test title",
+              subTitle: "test subTitle"
+            });
+          }
+        })(Zepto);
+      };
+    </script>
+  </body>
+</html>
