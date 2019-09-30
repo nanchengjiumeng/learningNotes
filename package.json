@@ -1,0 +1,26 @@
+{
+  "name": "learningnotes",
+  "version": "1.0.0",
+  "description": "学习文档笔记.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TopSchoolwangyubia/learningNotes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TopSchoolwangyubia/learningNotes/issues"
+  },
+  "homepage": "https://github.com/TopSchoolwangyubia/learningNotes#readme",
+  "dependencies": {
+    "commander": "^3.0.2",
+    "execa": "^2.0.4",
+    "formidable": "^1.2.1",
+    "inquirer": "^7.0.0",
+    "vue": "^2.6.10"
+  }
+}
