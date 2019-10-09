@@ -8,7 +8,20 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${file}"
+            "program": "${file}",
+
+            // debug .ts
+            // "program": "${workspaceFolder}/ts/1.hello world.ts",
+            "preLaunchTask": "tsc: build - tsconfig.json",
+            "outFiles": ["${workspaceFolder}/out/**/*.js"],
+
+            // debug .ts in client side
+            // "type": "chrome",
+            // "request": "launch",
+            // "name": "Launch Chrome against localhost",
+            // "url": "file:///Users/ricardo/Desktop/pro/learningNotes/ts/hw.html",
+            // "webRoot": "${workspaceFolder}/ts"
+
         }
     ]
 }
